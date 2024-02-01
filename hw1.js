@@ -13,6 +13,9 @@ function formatUSDate(date) {
 }
 
 // Function to process the input string and print the formatted date
+
+
+// Function to process the input string and print the formatted date
 function processInput(input) {
   // Check if the input follows the specified format
   const regex = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})$/;
@@ -22,7 +25,15 @@ function processInput(input) {
     const [, year, month, day, hour, minute, second] = match;
     const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
 
-    if (!isNaN(date.getTime())) {
+    // Check if parsed date components match the input
+    if (
+      date.getFullYear() == parseInt(year) &&
+      date.getMonth() + 1 == parseInt(month) && // Month is zero-based in JavaScript Date object
+      date.getDate() == parseInt(day) &&
+      date.getHours() == parseInt(hour) &&
+      date.getMinutes() == parseInt(minute) &&
+      date.getSeconds() == parseInt(second)
+    ) {
       // Date is valid
       const formattedDate = formatUSDate(date);
       console.log(formattedDate);
@@ -33,6 +44,7 @@ function processInput(input) {
     console.error(`Invalid input format. Please use YYYYMMDDTHHMMSS.`);
   }
 }
+
 
 // Function to run the program in a loop
 function runProgram() {
